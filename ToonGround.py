@@ -74,8 +74,12 @@ class ToonGround(QMainWindow):
 
     def __scroll_down_in_thread(self):
         while self.__auto_scroll_running:
-            self.__toon_image_viewer.scroll_with_value(-50)
-            time.sleep(0.005)
+            scrolled = 0
+            while scrolled <= self.height():
+                self.__toon_image_viewer.scroll_with_value(-100)
+                scrolled += 100
+                time.sleep(0.000005)
+            time.sleep(1.5)
 
     def __caching_all_toon_images(self):
         # 학교에서 과도한 패킷을 날리는 것을 방지하기 위해 받아오는 웹툰 회차를 3으로 제한
