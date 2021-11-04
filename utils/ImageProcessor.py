@@ -1,7 +1,8 @@
 import numpy as np
 import secrets
 from cv2 import cv2
-from Utils.Utils import make_cache_dir, remove_extension
+
+from utils.Utils import make_cache_dir, remove_extension
 
 
 class ImageProcessor:

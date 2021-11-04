@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import urllib.request
 
-from Utils.ImageProcessor import ImageProcessor
+from utils.ImageProcessor import ImageProcessor
 
 
 class Crawler:

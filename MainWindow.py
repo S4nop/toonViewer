@@ -1,7 +1,7 @@
 import atexit
 from PyQt5.QtWidgets import *
 from ToonGround import ToonGround
-from Utils.Utils import clean_caches
+from utils.Utils import clean_caches
 
 
 def main():

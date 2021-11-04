@@ -5,7 +5,7 @@ from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QWheelEvent, QPixmap
 from PyQt5.QtWidgets import QMainWindow, QPushButton
 
-from Crawler.Crawler import Crawler
+from crawler.Crawler import Crawler
 from widgets.ConsecutiveImageViewer import ConsecutiveImageViewer
 from widgets.StatusWidget import StatusWidget
 
