@@ -1,9 +1,11 @@
+import threading
+
 from PyQt5 import QtGui, QtCore
 from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtGui import QImage, QBrush, QPalette, QPixmap
 from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QHBoxLayout, QSizePolicy, QScrollArea, QVBoxLayout, QLayout
 
-
+_lock = threading.Lock()
 class ConsecutiveImageViewer(QWidget):
     def __init__(self, parent, move_callback):
         super(ConsecutiveImageViewer, self).__init__(parent)
@@ -44,7 +46,9 @@ class ConsecutiveImageViewer(QWidget):
         self.__get_prev_viewer().move(0, -30000)
 
     def scroll_with_value(self, delta):
+        _lock.acquire()
         self.scroll_area.verticalScrollBar().setValue(self.scroll_area.verticalScrollBar().value() - delta)
+        _lock.release()
         self.__wheel_event(None)
 
     def move_next(self):
@@ -71,7 +75,9 @@ class ConsecutiveImageViewer(QWidget):
         curr_viewer.move(0, 0)
         next_viewer.move(0, curr_viewer.y() + curr_viewer.height())
         prev_viewer.move(0, next_viewer.y() + next_viewer.height())
+        _lock.acquire()
         self.scroll_area.verticalScrollBar().setValue(next_viewer.y())
+        _lock.release()
 
     def __reorder_to_prev(self):
         prev_viewer = self.__get_prev_viewer()
@@ -80,7 +86,9 @@ class ConsecutiveImageViewer(QWidget):
         next_viewer.move(0, 0)
         prev_viewer.move(0, next_viewer.y() + next_viewer.height())
         curr_viewer.move(0, prev_viewer.y() + prev_viewer.height())
+        _lock.acquire()
         self.scroll_area.verticalScrollBar().setValue(prev_viewer.y())
+        _lock.release()
 
     def __get_prev_viewer(self):
         return self.image_viewers[self.current_viewer_idx - 1]
