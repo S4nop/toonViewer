@@ -46,7 +46,7 @@ class StatusWidget(QWidget):
         self.title_label.setFont(QtGui.QFont("a디딤돌", 22))
         self.title_label.setStyleSheet('background-color: rgba(0, 0, 0, 0); Color: #999999')
 
-        self.sub_title_label = QLabel("부제목입니다", self)
+        self.sub_title_label = QLabel("SN-ToonViewer", self)
         self.sub_title_label.setAlignment(Qt.AlignHCenter)
         self.sub_title_label.font().setBold(True)
         self.sub_title_label.move(0, 48)
