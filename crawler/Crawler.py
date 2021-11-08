@@ -13,12 +13,21 @@ class Crawler:
     #마지막화의 회차 번호를 크롤링해서 반환하기
     def get_last_epi_no(self, toon_id):
         # -----------------------------여기에 코드를 작성하세요---------------------------------
+        toon_main = requests.get("https://comic.naver.com/webtoon/list.nhn?titleId=" + toon_id)
+        soup = BeautifulSoup(toon_main.content, "html.parser")
+        for i in range(1, 10):
+            td = soup.select("table > tr")[i].select_one("a")["href"]
+            if td.find('no=') != -1:
+                return td.split("no=")[1].split("&")[0]
 
         # ----------------------------------------------------------------------------------
 
     #해당하는 회차의 웹툰 이미지들을 모두 받아서 image_urls에 넣기
     def get_toon_images(self, toon_id, epi_no):
         #-----------------------------여기에 코드를 작성하세요---------------------------------
+        toon_page = requests.get("https://comic.naver.com/webtoon/detail.nhn?titleId=" + toon_id + "&no=" + str(epi_no))
+        soup = BeautifulSoup(toon_page.content, "html.parser")
+        image_urls = soup.select(".wt_viewer > img")
 
         #----------------------------------------------------------------------------------
 
